@@ -1,25 +1,43 @@
 <html lang="en">
 <head>
-    <title>Metoda</title>
+    <title>Main</title>
     <link rel="stylesheet" href="/static/styles/index_style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
 </head>
-<header>
-    <h1>
-        <a href="/hello"><img src="/static/img/image.jpg" alt="home"></a>
-    </h1>
-</header>
-<form action="/hello" method="GET">
-    <input type="text" name="query" placeholder="Введите запрос" value="{{ .query }}">
-    <button type="submit">Найти</button>
-</form>
-    <h2>
-        {{ .time }}
-    </h2>
-    <ul>
-        {{ range .orders }}
-        <li>
-            <a href="/order/{{ .ID }}"> {{ .Title }} </a>
-        </li>
-        {{ end }}
-    </ul>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="/hello">
+                    <img src="/static/img/logo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="navigation-bar">
+                <div class="search">
+                    <form action="/hello" method="GET">
+                        <input type="text" name="query" placeholder="Для поиска введите что-нибудь" value="{{ .query }}">
+                        <button class="find-button" type="submit"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+    <h1 class="title">Расчет температур экзопланет</h1>
+        <div class="card-list">
+            {{ range .orders }}
+            <div class="card">
+                <a href="/order/{{ .ID }}" class="card-image-link">
+                    <div class="card-image">
+                        <img src="/static/img/{{ .Image }}" alt="Planet">
+                        <div class="card-title">{{ .Title }}</div>
+                    </div>
+                </a>
+                <div class="card-footer">
+                    <button>Добавить</button>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    <a href="/TODO" class="planet-button"></a>
+</body>
 </html>

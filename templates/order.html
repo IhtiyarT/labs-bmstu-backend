@@ -2,12 +2,34 @@
 <head>
     <title>Metoda</title>
     <link rel="stylesheet" href="/static/styles/order_style.css">
-</head>
-<header>
-    <h1>
-        <a href="/hello"><img src="/static/img/image.jpg" alt="home"></a>
-    </h1>
-</header>
-    <h1>Информация о заказе №{{ .order.ID }}</h1>
-    <h2>Заголовок: {{ .order.Title }}</h2>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet"></head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="/hello">
+                    <img src="/static/img/logo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="navigation-bar">
+                <div class="search">
+                    <a href="/hello">
+                        <h2 class="back-button">Вернуться назад</h2>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="order-container">
+        <div class="order-image">
+            <img src="/static/img/{{ .order.Image }}" alt="Planet">
+        </div>
+        <div class="order-details">
+            <h1 class="title">{{ .order.Title }}</h1>
+            <p>{{ .order.Planet_description }}</p>
+            <p>{{ .order.Albedo_info }}</p>
+            <p>Среднее значение Альбедо - {{ .order.Albedo }}</p>
+        </div>
+    </div>
+</body>
 </html>
