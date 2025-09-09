@@ -25,6 +25,7 @@ func StartServer() {
 
 	r.GET("/hello", handler.GetOrders)
 	r.GET("/order/:id", handler.GetOrder)
+	r.GET("/temps-request", handler.GetTempsData)
 
 	r.Run()
 	log.Println("Server down")

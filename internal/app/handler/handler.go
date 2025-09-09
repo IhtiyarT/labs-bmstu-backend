@@ -4,7 +4,6 @@ import (
 	"LABS-BMSTU-BACKEND/internal/app/repository"
 	"net/http"
 	"strconv"
-	"time"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
@@ -37,7 +36,6 @@ func (h *Handler) GetOrders(ctx *gin.Context) {
 	}
 
 	ctx.HTML(http.StatusOK, "index.html", gin.H{
-		"time": time.Now().Format("15:04:05"),
 		"orders": orders,
 		"query": searchQuery,
 	})
@@ -57,5 +55,16 @@ func (h *Handler) GetOrder(ctx *gin.Context) {
 
 	ctx.HTML(http.StatusOK, "order.html", gin.H{
 		"order": order,
+	})
+}
+
+func (h *Handler) GetTempsData(ctx *gin.Context) {
+	temps_data, err := h.Repository.GetTempsData()
+	if err != nil {
+		logrus.Error(err)
+	}
+
+	ctx.HTML(http.StatusOK, "temps_request.html", gin.H{
+		"temps_data": temps_data,
 	})
 }
