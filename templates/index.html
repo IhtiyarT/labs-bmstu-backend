@@ -26,10 +26,10 @@
         <div class="card-list">
             {{ range .orders }}
             <div class="card">
-                <a href="/order/{{ .ID }}" class="card-image-link">
+                <a href="/order/{{ .Planet_id }}" class="card-image-link">
                     <div class="card-image">
-                        <img src="http://127.0.0.1:9000/minio-backend/{{ .Image }}" alt="Planet">
-                        <div class="card-title">{{ .Title }}</div>
+                        <img src="http://127.0.0.1:9000/minio-backend/{{ .Planet_image }}" alt="Planet">
+                        <div class="card-title">{{ .Planet_title }}</div>
                     </div>
                 </a>
                 <div class="card-footer">

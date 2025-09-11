@@ -4,6 +4,7 @@ import (
 	"LABS-BMSTU-BACKEND/internal/app/repository"
 	"net/http"
 	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
@@ -58,13 +59,34 @@ func (h *Handler) GetOrder(ctx *gin.Context) {
 	})
 }
 
-func (h *Handler) GetTempsData(ctx *gin.Context) {
-	temps_data, err := h.Repository.GetTempsData()
+func (h *Handler) GetTempRequestData(ctx *gin.Context) {
+	temp_datas, err := h.Repository.GetTempRequestDataById(1)
 	if err != nil {
 		logrus.Error(err)
 	}
 
+	ids := make([]int, len(temp_datas))
+	for i, data := range temp_datas {
+		ids[i] = data.Planet_id
+	}
+
+	planet_datas, err := h.Repository.GetOrdersById(ids)
+	if err != nil {
+		logrus.Error(err)
+	}
+
+	new_temp_datas := make([]repository.Temps_data, len(temp_datas))
+    for i := range temp_datas {
+        new_temp_datas[i] = repository.Temps_data{
+            Planet_image:       planet_datas[i].Planet_image,
+            Planet_title:       planet_datas[i].Planet_title,
+            Albedo:      planet_datas[i].Albedo,
+            Planet_distance:    temp_datas[i].Planet_distance,
+            Planet_temperature: temp_datas[i].Planet_temperature,
+        }
+    }
+
 	ctx.HTML(http.StatusOK, "temps_request.html", gin.H{
-		"temps_data": temps_data,
+		"temp_datas": new_temp_datas,
 	})
 }

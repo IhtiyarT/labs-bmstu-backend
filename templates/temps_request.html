@@ -25,11 +25,11 @@
             <p class="request-subtitle">Выбрано планет – 2</p>
         </div>
         <div class="card-container">
-            {{ range .temps_data }}
+            {{ range .temp_datas }}
             <div class="card">
-                <img class="card-img" src="http://127.0.0.1:9000/minio-backend/{{ .Image }}" alt="Planet">
+                <img class="card-img" src="http://127.0.0.1:9000/minio-backend/{{ .Planet_image }}" alt="Planet">
                 <div>
-                    <h3 class="card-title">{{ .Title }}</h3>
+                    <h3 class="card-title">{{ .Planet_title }}</h3>
                     <div class="card-data-row">
                         <div class="card-row">
                             <span class="label">Альбедо –</span>
@@ -37,12 +37,12 @@
                         </div>
                         <div class="card-row">
                             <span class="label">Расстояние до звезды –</span>
-                            <input class="field white-field" type="text" value="{{ .Distance }}" readonly>
+                            <input class="field white-field" type="text" value="{{ .Planet_distance }}" readonly>
                             <span class="unit">млн км</span>
                         </div>
                         <div class="card-row">
                             <span class="label">Температура –</span>
-                            <span class="field gray-field">{{ .Temperature }}</span>
+                            <span class="field gray-field">{{ .Planet_temperature }}</span>
                             <span class="unit">К</span>
                         </div>
                     </div>
