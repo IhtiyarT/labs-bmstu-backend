@@ -7,15 +7,56 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
-	// "LABS-BMSTU-BACKEND/internal/app/ds"
 )
 
 func (h *Handler) AddPlanetToSystem(ctx *gin.Context) {
-	id, err := strconv.Atoi(ctx.Param("id"))
+	planet_id, err1 := strconv.Atoi(ctx.Param("planet_id"))
+	system_id, err2 := h.Repository.GetDraftPlanetSystemID()
+	 if err1 != nil {
+        logrus.Error(err1)
+        ctx.Redirect(http.StatusFound, "/")
+        return
+    }
+	if err2 != nil {
+        logrus.Error(err2)
+        ctx.Redirect(http.StatusFound, "/")
+        return
+    }
+	
+	if system_id == 0 {
+		system_id, err2= h.Repository.CreateNewDraftPlanetSystem(uint(1))
+		if err2 != nil {
+			logrus.Error(err2)
+		}
+	}
+	
+	h.Repository.AddPlanetToSystem(uint(planet_id), uint(system_id))
+	ctx.Redirect(http.StatusFound, "/")
+}
+
+func (h *Handler) DeletePlanetSystem(ctx *gin.Context) {
+	system_id, err := h.Repository.GetDraftPlanetSystemID()
+	if system_id == 0 && err == nil{
+		logrus.Infof("Система для удаления не найдена")
+	}
+	h.Repository.DeletePlanetSystem(uint(system_id))
+    ctx.Redirect(http.StatusFound, "/")
+}
+
+func (h *Handler) GetPlanetSystemByID(ctx *gin.Context) {
+	idStr := ctx.Param("id")
+
+	id, err := strconv.Atoi(idStr) 
+	if err != nil {
+		logrus.Error(err)
+	}
+
+	order, err := h.Repository.GetOrder(id)
 	if err != nil {
 		logrus.Error(err)
 	}
 	
-	h.Repository.AddPlanetToSystem(uint(id), uint(1))
-	ctx.Redirect(http.StatusFound, "/")
+	ctx.HTML(http.StatusOK, "order.html", gin.H{
+		"order": order,
+	})
 }

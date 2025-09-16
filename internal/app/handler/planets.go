@@ -51,9 +51,3 @@ func (h *Handler) GetOrder(ctx *gin.Context) {
 		"order": order,
 	})
 }
-
-func (h *Handler) DeletePlanet(ctx *gin.Context) {
-	id := ctx.Param("id")
-	h.Repository.DeletePlanet(id)
-    ctx.Redirect(http.StatusFound, "/")
-}

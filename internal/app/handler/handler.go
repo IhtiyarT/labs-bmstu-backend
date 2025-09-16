@@ -20,16 +20,14 @@ func NewHandler(r *repository.Repository) *Handler {
 	}
 }
 
-// RegisterHandler Функция, в которой мы отдельно регистрируем маршруты, чтобы не писать все в одном месте
 func (h *Handler) RegisterHandler(router *gin.Engine) {
 	router.GET("/", h.GetOrders)
 	router.GET("/order/:id", h.GetOrder)
 	router.GET("/temps-request", h.GetTempRequestData)
-	router.POST("/delete/:id", h.DeletePlanet)
-	router.POST("/add/:id", h.AddPlanetToSystem)
+	router.POST("/delete", h.DeletePlanetSystem)
+	router.POST("/add/:planet_id", h.AddPlanetToSystem)
 }
 
-// RegisterStatic То же самое, что и с маршрутами, регистрируем статику
 func (h *Handler) RegisterStatic(router *gin.Engine) {
 	router.LoadHTMLGlob("templates/*")
 	router.Static("/resources/styles", "./resources/styles")

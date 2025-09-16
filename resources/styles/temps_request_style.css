@@ -181,3 +181,16 @@ html, body {
     white-space: nowrap;
 }
 
+.delete-button {
+    background-color: #326C90;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    pointer-events: visible;
+    width: 120px;
+    height: 40px;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-left: 705px;
+}

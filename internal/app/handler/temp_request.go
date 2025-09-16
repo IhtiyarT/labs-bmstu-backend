@@ -3,7 +3,6 @@ package handler
 import (
 	"net/http"
 	// "strconv"
-	// "time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -11,7 +10,12 @@ import (
 )
 
 func (h *Handler) GetTempRequestData(ctx *gin.Context) {
-	temp_datas, err := h.Repository.GetPlanetsWithSystemData(1)
+	system_id, err := h.Repository.GetDraftPlanetSystemID()
+	if system_id == 0 && err == nil {
+		logrus.Infof("Заявка не найдена")
+	}
+
+	temp_datas, err := h.Repository.GetPlanetsWithSystemData(uint(system_id))
 	if err != nil {
 		logrus.Error(err)
 	}
