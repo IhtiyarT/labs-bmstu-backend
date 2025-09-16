@@ -36,11 +36,13 @@
                     </div>
                 </a>
                 <div class="card-footer">
-                    <button>Добавить</button>
+                    <form action="/add/{{ .PlanetID }}" method="POST">
+                        <button>Добавить</button>
+                    </form> 
                 </div>
             </div>
             {{ end }}
         </div>
-    <!-- <a href="/temps-request" class="planet-button"></a> -->
+    <a href="/temps-request" class="planet-button"></a>
 </body>
 </html>

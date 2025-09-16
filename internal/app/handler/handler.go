@@ -25,6 +25,8 @@ func (h *Handler) RegisterHandler(router *gin.Engine) {
 	router.GET("/", h.GetOrders)
 	router.GET("/order/:id", h.GetOrder)
 	router.GET("/temps-request", h.GetTempRequestData)
+	router.POST("/delete/:id", h.DeletePlanet)
+	router.POST("/add/:id", h.AddPlanetToSystem)
 }
 
 // RegisterStatic То же самое, что и с маршрутами, регистрируем статику
