@@ -10,18 +10,18 @@ import (
 	"LABS-BMSTU-BACKEND/internal/app/ds"
 )
 
-func (h *Handler) GetOrders(ctx *gin.Context) {
-	var orders []ds.Planets
+func (h *Handler) GetPlanets(ctx *gin.Context) {
+	var planets []ds.Planets
 	var err error
 
 	searchQuery := ctx.Query("query") 
 	if searchQuery == "" {
-		orders, err = h.Repository.GetOrders()
+		planets, err = h.Repository.GetPlanets()
 		if err != nil {
 			logrus.Error(err)
 		}
 	} else {
-		orders, err = h.Repository.GetOrdersByTitle(searchQuery) 
+		planets, err = h.Repository.GetPlanetsByTitle(searchQuery) 
 		if err != nil {
 			logrus.Error(err)
 		}
@@ -40,14 +40,14 @@ func (h *Handler) GetOrders(ctx *gin.Context) {
 
 	ctx.HTML(http.StatusOK, "index.html", gin.H{
 		"time":   time.Now().Format("15:04:05"),
-		"orders": orders,
+		"planets": planets,
 		"query":  searchQuery,
 		"cartCount": cartCount,
 		"system_id": system_id,
 	})
 }
 
-func (h *Handler) GetOrder(ctx *gin.Context) {
+func (h *Handler) GetPlanet(ctx *gin.Context) {
 	idStr := ctx.Param("id")
 
 	id, err := strconv.Atoi(idStr) 
@@ -55,12 +55,12 @@ func (h *Handler) GetOrder(ctx *gin.Context) {
 		logrus.Error(err)
 	}
 
-	order, err := h.Repository.GetOrder(id)
+	planet, err := h.Repository.GetPlanet(id)
 	if err != nil {
 		logrus.Error(err)
 	}
 	
-	ctx.HTML(http.StatusOK, "order.html", gin.H{
-		"order": order,
+	ctx.HTML(http.StatusOK, "planet.html", gin.H{
+		"planet": planet,
 	})
 }

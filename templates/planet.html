@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
-    <title>Order</title>
-    <link rel="stylesheet" href="/resources/styles/order_style.css">
+    <title>planet</title>
+    <link rel="stylesheet" href="/resources/styles/planet_style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet"></head>
 <body>
     <header>
@@ -20,14 +20,14 @@
             </div>
         </div>
     </header>
-    <div class="order-container">
-        <div class="order-image">
-            <img src="http://127.0.0.1:9000/minio-backend/{{ .order.PlanetImage }}" alt="Planet">
+    <div class="planet-container">
+        <div class="planet-image">
+            <img src="http://127.0.0.1:9000/minio-backend/{{ .planet.PlanetImage }}" alt="Planet">
         </div>
-        <div class="order-details">
-            <h1 class="title">{{ .order.PlanetTitle }}</h1>
-            <p>{{ .order.PlanetDescription }}</p>
-            <p>Среднее значение Альбедо - {{ .order.Albedo }}</p>
+        <div class="planet-details">
+            <h1 class="title">{{ .planet.PlanetTitle }}</h1>
+            <p>{{ .planet.PlanetDescription }}</p>
+            <p>Среднее значение Альбедо - {{ .planet.Albedo }}</p>
         </div>
     </div>
 </body>

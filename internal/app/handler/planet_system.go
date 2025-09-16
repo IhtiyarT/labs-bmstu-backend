@@ -51,12 +51,12 @@ func (h *Handler) GetPlanetSystemByID(ctx *gin.Context) {
 		logrus.Error(err)
 	}
 
-	order, err := h.Repository.GetOrder(id)
+	planet, err := h.Repository.GetPlanet(id)
 	if err != nil {
 		logrus.Error(err)
 	}
 	
-	ctx.HTML(http.StatusOK, "order.html", gin.H{
-		"order": order,
+	ctx.HTML(http.StatusOK, "planet.html", gin.H{
+		"planet": planet,
 	})
 }

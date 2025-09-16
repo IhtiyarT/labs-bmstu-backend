@@ -19,35 +19,35 @@ type PlanetWithSystemData struct {
 	StarTemperature   uint    `json:"star_temperature"`
 }
 
-func (r *Repository) GetOrders() ([]ds.Planets, error) {
-	var orders []ds.Planets
-	err := r.db.Find(&orders).Error
+func (r *Repository) GetPlanets() ([]ds.Planets, error) {
+	var planets []ds.Planets
+	err := r.db.Find(&planets).Error
 	if err != nil {
 		return nil, err
 	}
-	if len(orders) == 0 {
+	if len(planets) == 0 {
 		return nil, fmt.Errorf("массив пустой")
 	}
 
-	return orders, nil
+	return planets, nil
 }
 
-func (r *Repository) GetOrder(id int) (ds.Planets, error) {
-	order := ds.Planets{}
-	err := r.db.Where("planet_id = ?", id).First(&order).Error
+func (r *Repository) GetPlanet(id int) (ds.Planets, error) {
+	planet := ds.Planets{}
+	err := r.db.Where("planet_id = ?", id).First(&planet).Error
 	if err != nil {
 		return ds.Planets{}, err
 	}
-	return order, nil
+	return planet, nil
 }
 
-func (r *Repository) GetOrdersByTitle(title string) ([]ds.Planets, error) {
-	var orders []ds.Planets
-	err := r.db.Where("planet_title ILIKE ?", "%"+title+"%").Find(&orders).Error
+func (r *Repository) GetPlanetsByTitle(title string) ([]ds.Planets, error) {
+	var planets []ds.Planets
+	err := r.db.Where("planet_title ILIKE ?", "%"+title+"%").Find(&planets).Error
 	if err != nil {
 		return nil, err
 	}
-	return orders, nil
+	return planets, nil
 }
 
 func (r *Repository) GetCountBySystemID(system_id uint) (int64, error) {
