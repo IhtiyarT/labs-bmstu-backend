@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <title>Main</title>
+    <link rel="stylesheet" href="/resources/styles/temps_request_style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="/">
+                    <img src="http://127.0.0.1:9000/minio-backend/logo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="navigation-bar"></div>
+        </div>
+    </header>
+    <main>
+        <div class="star-chooser">
+            <h1 class="star-chooser-title">Класс А (Белые звезды) – 8500 К</h1>
+            <button class="chooser-button"></button>
+        </div>
+        <div class="request-section">
+            <h2 class="request-title">Составление заявки</h2>
+            <p class="request-subtitle">Выбрано планет – 2</p>
+        </div>
+        <div class="card-container">
+            {{ range .temp_datas }}
+            <div class="card">
+                <img class="card-img" src="http://127.0.0.1:9000/minio-backend/{{ .PlanetImage }}" alt="Planet">
+                <div>
+                    <h3 class="card-title">{{ .PlanetTitle }}</h3>
+                    <div class="card-data-row">
+                        <div class="card-row">
+                            <span class="label">Альбедо –</span>
+                            <span class="field gray-field">{{ .Albedo }}</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="label">Расстояние до звезды –</span>
+                            <input class="field white-field" type="text" value="{{ .PlanetDistance }}" readonly>
+                            <span class="unit">млн км</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="label">Температура –</span>
+                            <span class="field gray-field">{{ .PlanetTemperature }}</span>
+                            <span class="unit">К</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </main>
+</body>
+</html>
