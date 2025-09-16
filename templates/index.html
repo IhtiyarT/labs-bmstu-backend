@@ -40,6 +40,13 @@
             </div>
             {{ end }}
         </div>
-    <a href="/temps-request" class="planet-button"></a>
+       
+        {{ if gt .cartCount 0 }}
+        <a href="/temps-request/{{ .system_id }}" class="planet-button">
+            <span class="cart-badge">{{ .cartCount }}</span>
+        </a>
+        {{ else }}
+        <a href="#" class="planet-button disabled"></a>
+        {{ end }}
 </body>
 </html>

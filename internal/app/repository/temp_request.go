@@ -1,19 +1,41 @@
 package repository
 
-func (r *Repository) GetPlanetsWithSystemData(systemID uint) ([]PlanetWithSystemData, error) {
+import (
+	"LABS-BMSTU-BACKEND/internal/app/ds"
+
+	"github.com/sirupsen/logrus"
+)
+
+func (r *Repository) GetPlanetsWithSystemData(system_id uint) ([]PlanetWithSystemData, error) {
 	var results []PlanetWithSystemData
-	
+
 	err := r.db.
 		Table("planets p").
 		Select("p.*, tr.planet_system_id, tr.planet_temperature, tr.planet_distance, ps.star_name, ps.star_temperature").
 		Joins("INNER JOIN temperature_requests tr ON p.planet_id = tr.planet_id").
 		Joins("INNER JOIN planet_systems ps ON tr.planet_system_id = ps.planet_system_id").
-		Where("p.is_delete = ? AND tr.planet_system_id = ?", false, systemID).
+		Where("p.is_delete = ? AND tr.planet_system_id = ?", false, system_id).
 		Scan(&results).Error
-	
+
 	if err != nil {
 		return nil, err
 	}
-	
+
 	return results, nil
+}
+
+func (r *Repository) CheckIsDelete(systemID uint) bool {
+	var count int64
+
+	err := r.db.
+		Model(&ds.Planet_system{}).
+		Where("planet_system_id = ? AND status = ?", systemID, "Черновик").
+		Count(&count).Error
+
+	if err != nil {
+		logrus.Errorf("Ошибка проверки системы %d: %v", systemID, err)
+		return false
+	}
+
+	return count > 0
 }

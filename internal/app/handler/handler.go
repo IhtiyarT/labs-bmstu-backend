@@ -23,7 +23,7 @@ func NewHandler(r *repository.Repository) *Handler {
 func (h *Handler) RegisterHandler(router *gin.Engine) {
 	router.GET("/", h.GetOrders)
 	router.GET("/order/:id", h.GetOrder)
-	router.GET("/temps-request", h.GetTempRequestData)
+	router.GET("/temps-request/:system_id", h.GetTempRequestData)
 	router.POST("/delete", h.DeletePlanetSystem)
 	router.POST("/add/:planet_id", h.AddPlanetToSystem)
 }

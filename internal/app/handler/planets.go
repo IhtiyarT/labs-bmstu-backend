@@ -27,10 +27,23 @@ func (h *Handler) GetOrders(ctx *gin.Context) {
 		}
 	}
 
+	system_id, err1 := h.Repository.GetDraftPlanetSystemID()
+	if err1 != nil {
+		logrus.Error(err1)
+	}
+	
+	cartCount, err := h.Repository.GetCountBySystemID(system_id)
+    if err != nil {
+        cartCount = 0
+        logrus.Error("Error getting cart count:", err)
+    }
+
 	ctx.HTML(http.StatusOK, "index.html", gin.H{
 		"time":   time.Now().Format("15:04:05"),
 		"orders": orders,
 		"query":  searchQuery,
+		"cartCount": cartCount,
+		"system_id": system_id,
 	})
 }
 

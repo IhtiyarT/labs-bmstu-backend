@@ -49,3 +49,13 @@ func (r *Repository) GetOrdersByTitle(title string) ([]ds.Planets, error) {
 	}
 	return orders, nil
 }
+
+func (r *Repository) GetCountBySystemID(system_id uint) (int64, error) {
+    var count int64
+    err := r.db.
+        Model(&ds.Temperature_request{}).
+        Where("planet_system_id = ?", system_id).
+        Count(&count).Error
+    
+    return count, err
+}
