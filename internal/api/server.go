@@ -23,8 +23,8 @@ func StartServer() {
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/static", "./resources")
 
-	r.GET("/", handler.GetOrders)
-	r.GET("/order/:id", handler.GetOrder)
+	r.GET("/", handler.GetPlanets)
+	r.GET("/planet/:id", handler.GetPlanet)
 	r.GET("/temps-request", handler.GetTempRequestData)
 
 	r.Run()

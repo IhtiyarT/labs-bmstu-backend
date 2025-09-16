@@ -19,43 +19,43 @@ func NewHandler(r *repository.Repository) *Handler {
 	}
 }
 
-func (h *Handler) GetOrders(ctx *gin.Context) {
-	var orders []repository.Order
+func (h *Handler) GetPlanets(ctx *gin.Context) {
+	var planets []repository.Planet
 	var err error
 
 	searchQuery := ctx.Query("query")
 	if searchQuery == "" {
-		orders, err = h.Repository.GetOrders()
+		planets, err = h.Repository.GetPlanets()
 		if err != nil {
 			logrus.Error(err)
 		}
 	} else {
-		orders, err = h.Repository.GetOrdersByTitle(searchQuery)
+		planets, err = h.Repository.GetPlanetsByTitle(searchQuery)
 		if err != nil {
 			logrus.Error(err)
 		}
 	}
 
 	ctx.HTML(http.StatusOK, "index.html", gin.H{
-		"orders": orders,
+		"planets": planets,
 		"query": searchQuery,
 	})
 }
 
-func (h *Handler) GetOrder(ctx *gin.Context) {
+func (h *Handler) GetPlanet(ctx *gin.Context) {
 	idStr := ctx.Param("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		logrus.Error(err)
 	}
 
-	order, err := h.Repository.GetOrder(id)
+	planet, err := h.Repository.GetPlanet(id)
 	if err != nil {
 		logrus.Error(err)
 	}
 
-	ctx.HTML(http.StatusOK, "order.html", gin.H{
-		"order": order,
+	ctx.HTML(http.StatusOK, "planet.html", gin.H{
+		"planet": planet,
 	})
 }
 
@@ -70,7 +70,7 @@ func (h *Handler) GetTempRequestData(ctx *gin.Context) {
 		ids[i] = data.Planet_id
 	}
 
-	planet_datas, err := h.Repository.GetOrdersById(ids)
+	planet_datas, err := h.Repository.GetPlanetsById(ids)
 	if err != nil {
 		logrus.Error(err)
 	}

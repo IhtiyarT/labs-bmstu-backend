@@ -24,9 +24,9 @@
     </header>
     <h1 class="title">Расчет температур экзопланет</h1>
         <div class="card-list">
-            {{ range .orders }}
+            {{ range .planets }}
             <div class="card">
-                <a href="/order/{{ .Planet_id }}" class="card-image-link">
+                <a href="/planet/{{ .Planet_id }}" class="card-image-link">
                     <div class="card-image">
                         <img src="http://127.0.0.1:9000/minio-backend/{{ .Planet_image }}" alt="Planet">
                         <div class="card-title">{{ .Planet_title }}</div>
@@ -38,6 +38,9 @@
             </div>
             {{ end }}
         </div>
-    <a href="/temps-request" class="planet-button"></a>
+
+        <a href="/temps-request" class="planet-button">
+            <span class="cart-badge">2</span>
+        </a>
 </body>
 </html>

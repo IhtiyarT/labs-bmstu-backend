@@ -12,7 +12,7 @@ func NewRepository() (*Repository, error) {
 	return &Repository{}, nil
 }
 
-type Order struct {
+type Planet struct {
 	Planet_id          int
 	Planet_title       string
 	Planet_image       string
@@ -53,8 +53,8 @@ func (r *Repository) GetTempRequestDataById(Planet_id int) ([]Temps_data, error)
 	return temps_data, nil
 }
 
-func (r *Repository) GetOrders() ([]Order, error) {
-	orders := []Order{
+func (r *Repository) GetPlanets() ([]Planet, error) {
+	planets := []Planet{
 		{
 			Planet_id:          1,
 			Planet_title:       "Горячий Юпитер",
@@ -121,55 +121,55 @@ func (r *Repository) GetOrders() ([]Order, error) {
 		},
 	}
 
-	if len(orders) == 0 {
+	if len(planets) == 0 {
 		return nil, fmt.Errorf("массив пустой")
 	}
 
-	return orders, nil
+	return planets, nil
 }
 
-func (r *Repository) GetOrder(Planet_id int) (Order, error) {
-	orders, err := r.GetOrders()
+func (r *Repository) GetPlanet(Planet_id int) (Planet, error) {
+	planets, err := r.GetPlanets()
 	if err != nil {
-		return Order{}, err
+		return Planet{}, err
 	}
 
-	for _, order := range orders {
-		if order.Planet_id == Planet_id {
-			return order, nil
+	for _, planet := range planets {
+		if planet.Planet_id == Planet_id {
+			return planet, nil
 		}
 	}
-	return Order{}, fmt.Errorf("заказ не найден")
+	return Planet{}, fmt.Errorf("заказ не найден")
 }
 
-func (r *Repository) GetOrdersByTitle(Planet_title string) ([]Order, error) {
-	orders, err := r.GetOrders()
+func (r *Repository) GetPlanetsByTitle(Planet_title string) ([]Planet, error) {
+	planets, err := r.GetPlanets()
 	if err != nil {
-		return []Order{}, err
+		return []Planet{}, err
 	}
 
-	var result []Order
-	for _, order := range orders {
-		if strings.Contains(strings.ToLower(order.Planet_title), strings.ToLower(Planet_title)) {
-			result = append(result, order)
+	var result []Planet
+	for _, planet := range planets {
+		if strings.Contains(strings.ToLower(planet.Planet_title), strings.ToLower(Planet_title)) {
+			result = append(result, planet)
 		}
 	}
 
 	return result, nil
 }
 
-func (r *Repository) GetOrdersById(Planet_ids []int) ([]Order, error) {
-	orders, err := r.GetOrders()
+func (r *Repository) GetPlanetsById(Planet_ids []int) ([]Planet, error) {
+	planets, err := r.GetPlanets()
 	if err != nil {
-		return []Order{}, err
+		return []Planet{}, err
 	}
 
-	var result []Order
+	var result []Planet
 	for _, Planet_id := range Planet_ids {
-		if Planet_id > 0 && Planet_id <= len(orders) {
-			result = append(result, orders[Planet_id-1])
+		if Planet_id > 0 && Planet_id <= len(planets) {
+			result = append(result, planets[Planet_id-1])
 		} else {
-			return []Order{}, fmt.Errorf("айди планеты не найдено")
+			return []Planet{}, fmt.Errorf("айди планеты не найдено")
 		}
 	}
 
