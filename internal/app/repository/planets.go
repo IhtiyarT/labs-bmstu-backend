@@ -68,15 +68,6 @@ func (r *Repository) GetPlanetsWithSystemData(systemID uint) ([]PlanetWithSystem
 	return results, nil
 }
 
-func (r *Repository) AddPlanetToSystem(planetID, systemID uint) error {
-	tempRequest := &ds.Temperature_request{
-		PlanetID:       planetID,
-		PlanetSystemID: systemID,
-	}
-	
-	return r.db.Create(tempRequest).Error
-}
-
 func (r *Repository) DeletePlanet(id string) {
 	query := "UPDATE planets SET is_delete = true WHERE id = $1"
 	r.db.Exec(query, id)

@@ -52,29 +52,8 @@ func (h *Handler) GetOrder(ctx *gin.Context) {
 	})
 }
 
-func (h *Handler) GetTempRequestData(ctx *gin.Context) {
-	temp_datas, err := h.Repository.GetPlanetsWithSystemData(1)
-	if err != nil {
-		logrus.Error(err)
-	}
-
-	ctx.HTML(http.StatusOK, "temps_request.html", gin.H{
-		"temp_datas": temp_datas,
-	})
-}
-
 func (h *Handler) DeletePlanet(ctx *gin.Context) {
 	id := ctx.Param("id")
 	h.Repository.DeletePlanet(id)
     ctx.Redirect(http.StatusFound, "/")
-}
-
-func (h *Handler) AddPlanetToSystem(ctx *gin.Context) {
-	id, err := strconv.Atoi(ctx.Param("id"))
-	if err != nil {
-		logrus.Error(err)
-	}
-	
-	h.Repository.AddPlanetToSystem(uint(id), uint(1))
-	ctx.Redirect(http.StatusFound, "/")
 }
