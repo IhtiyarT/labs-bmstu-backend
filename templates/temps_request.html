@@ -16,9 +16,17 @@
         </div>
     </header>
     <main>
+            <pre style="display: none;">
+{{ printf "%+v" (index .temp_datas 0) }}
+</pre>
         <div class="star-chooser">
-            <h1 class="star-chooser-title">Класс А (Белые звезды) – 8500 К</h1>
-            <button class="chooser-button"></button>
+            <span class="label">Название звезды –</span>
+            <span class="field text-field" contenteditable="true">{{ (index .temp_datas 0).StarName }}</span>
+            <span class="label">Тип звезды –</span>
+            <span class="field text-field" contenteditable="true">{{ (index .temp_datas 0).StarType }}</span>
+            <span class="label">Температура звезды –</span>
+            <span class="field white-field" contenteditable="true">{{ (index .temp_datas 0).StarTemperature }}</span>
+            <span class="unit">К</span>
         </div>
         <div class="request-section">
             <h2 class="request-title">Составление заявки</h2>

@@ -8,9 +8,10 @@ type Planet_system struct {
 	PlanetSystemID uint      `json:"id" gorm:"primaryKey"`
 	DateCreated    time.Time `json:"date_created" gorm:"not null"`
 	Status         string    `json:"status" gorm:"type:varchar(50);not null"`
-	UserID           uint     `json:"user_id" gorm:"foreignKey:UserID;not null"`
+	UserID         uint      `json:"user_id" gorm:"foreignKey:UserID;not null"`
 
 	ModerID         uint   `json:"moder_id"`
+	StarType        string `json:"star_type" gorm:"type:varchar(255)"`
 	StarName        string `json:"star_name" gorm:"type:varchar(255)"`
 	StarTemperature uint   `json:"star_temperature"`
 }

@@ -51,12 +51,12 @@ func (h *Handler) GetPlanetSystemByID(ctx *gin.Context) {
 		logrus.Error(err)
 	}
 
-	planet, err := h.Repository.GetPlanet(id)
+	planet_system, err := h.Repository.GetPlanetSystemByID(uint(id))
 	if err != nil {
 		logrus.Error(err)
 	}
 	
 	ctx.HTML(http.StatusOK, "planet.html", gin.H{
-		"planet": planet,
+		"planet_system": planet_system,
 	})
 }
