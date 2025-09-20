@@ -27,6 +27,9 @@ type Temps_data struct {
 	Planet_title       string
 	Planet_image       string
 	Albedo      float64
+	Star_name string
+	Star_type string
+	Star_temperature int
 }
 
 func (r *Repository) GetTempRequestDataById(Planet_id int) ([]Temps_data, error) {
@@ -36,11 +39,17 @@ func (r *Repository) GetTempRequestDataById(Planet_id int) ([]Temps_data, error)
 				Planet_id:          1,
 				Planet_distance:    150,
 				Planet_temperature: 2600,
+				Star_name: "Сириус В",
+				Star_type: "Белый карлик",
+				Star_temperature: 25000,
 			},
 			{
 				Planet_id:          6,
 				Planet_distance:    400,
 				Planet_temperature: 420,
+				Star_name: "Сириус В",
+				Star_type: "Белый карлик",
+				Star_temperature: 25000,
 			},
 		},
 	}
@@ -50,6 +59,15 @@ func (r *Repository) GetTempRequestDataById(Planet_id int) ([]Temps_data, error)
 		return nil, fmt.Errorf("заявка пустая")
 	}
 	return temps_data, nil
+}
+
+func (r *Repository) GetTempRequestLen(system_id int) (int, error) {
+	temps_data, err := r.GetTempRequestDataById(system_id)
+	if err != nil {
+		return 0, err
+	}
+
+	return len(temps_data), nil
 }
 
 func (r *Repository) GetPlanets() ([]Planet, error) {

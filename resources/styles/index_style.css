@@ -122,6 +122,7 @@ html, body {
     background: #153e69;
     background-image: url("/static/img/bg.jpg");
     padding: 12px;
+    height: 25px;
 }
 
 .card-footer button {

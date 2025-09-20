@@ -23,22 +23,28 @@ func (h *Handler) GetPlanets(ctx *gin.Context) {
 	var planets []repository.Planet
 	var err error
 
-	searchQuery := ctx.Query("query")
-	if searchQuery == "" {
+	searchPlanetName := ctx.Query("query")
+	if searchPlanetName == "" {
 		planets, err = h.Repository.GetPlanets()
 		if err != nil {
 			logrus.Error(err)
 		}
 	} else {
-		planets, err = h.Repository.GetPlanetsByTitle(searchQuery)
+		planets, err = h.Repository.GetPlanetsByTitle(searchPlanetName)
 		if err != nil {
 			logrus.Error(err)
 		}
 	}
 
+	request_count, err := h.Repository.GetTempRequestLen(1)
+	if err != nil {
+		logrus.Error(err)
+	}
+
 	ctx.HTML(http.StatusOK, "index.html", gin.H{
-		"planets": planets,
-		"query": searchQuery,
+		"planets":       planets,
+		"query":         searchPlanetName,
+		"request_count": request_count,
 	})
 }
 
@@ -76,17 +82,26 @@ func (h *Handler) GetTempRequestData(ctx *gin.Context) {
 	}
 
 	new_temp_datas := make([]repository.Temps_data, len(temp_datas))
-    for i := range temp_datas {
-        new_temp_datas[i] = repository.Temps_data{
-            Planet_image:       planet_datas[i].Planet_image,
-            Planet_title:       planet_datas[i].Planet_title,
-            Albedo:      planet_datas[i].Albedo,
-            Planet_distance:    temp_datas[i].Planet_distance,
-            Planet_temperature: temp_datas[i].Planet_temperature,
-        }
-    }
+	for i := range temp_datas {
+		new_temp_datas[i] = repository.Temps_data{
+			Planet_image:       planet_datas[i].Planet_image,
+			Planet_title:       planet_datas[i].Planet_title,
+			Albedo:             planet_datas[i].Albedo,
+			Planet_distance:    temp_datas[i].Planet_distance,
+			Planet_temperature: temp_datas[i].Planet_temperature,
+			Star_name:          temp_datas[i].Star_name,
+			Star_type:          temp_datas[i].Star_type,
+			Star_temperature:   temp_datas[i].Star_temperature,
+		}
+	}
+
+	request_count, err := h.Repository.GetTempRequestLen(1)
+	if err != nil {
+		logrus.Error(err)
+	}
 
 	ctx.HTML(http.StatusOK, "temps_request.html", gin.H{
-		"temp_datas": new_temp_datas,
+		"temp_datas":    new_temp_datas,
+		"request_count": request_count,
 	})
 }
